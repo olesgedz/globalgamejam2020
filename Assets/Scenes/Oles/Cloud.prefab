@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4357186489088760440}
   - component: {fileID: 8131421678531532106}
   - component: {fileID: 4147098183530342656}
+  - component: {fileID: 2900567598044715395}
   m_Layer: 0
   m_Name: Cloud
   m_TagString: Untagged
@@ -93,3 +94,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2900567598044715395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140966944650613426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcbf017f4fc984c8b9469fbd6cd34d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planet: {fileID: 300866927850090267, guid: 2aa4979e3f35c4b8791484d101a58e28, type: 3}

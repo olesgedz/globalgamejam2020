@@ -14,13 +14,13 @@ public class HexData : MonoBehaviour
     public HexProgress hexProgressState;
 
         MeshRenderer model;
-        float waterBalance;
-        float temperatureBalance;
-        float disasterProgress;
-        float generalProgress;
-        float addition;
-        Color startColorLife;
-        Color endColorLife;
+        [SerializeField] float waterBalance;
+        [SerializeField] float temperatureBalance;
+        [SerializeField] float disasterProgress;
+        [SerializeField] float generalProgress;
+        [SerializeField] float addition;
+        [SerializeField] Color startColorLife;
+        [SerializeField] Color endColorLife;
 
     private void setIdle(HexState newHexState)
     {
@@ -55,9 +55,12 @@ public class HexData : MonoBehaviour
 
     private void updateColor()
     {
+        float prog;
         if (generalProgress > 200)
-            generalProgress = 200;
-        model.material.SetColor("_Color", Color32.Lerp(startColorLife, endColorLife, Mathf.PingPong(generalProgress / 200, 1)));
+            prog = 200;
+        else
+            prog = generalProgress;
+        model.material.SetColor("_Color", Color32.Lerp(startColorLife, endColorLife, Mathf.PingPong(prog / 200, 1)));
     }
 
     public void influeceNeibours()
@@ -67,7 +70,7 @@ public class HexData : MonoBehaviour
             foreach (HexData hex in hexNeibours)
             {
                 if (hex.isAlive())
-                    hex.updateProgress(generalProgress / 2);
+                    hex.updateProgress(addition / 2);
                 else
                     hex.live();
             }
@@ -120,7 +123,8 @@ public class HexData : MonoBehaviour
             return;
         }
         addition = (float)(20 * Time.deltaTime);
-        generalProgress += addition;
+        if (generalProgress <= 900)
+            generalProgress += addition;
         hexProgressState = (HexProgress)((int)generalProgress / 100);
     }
 
@@ -162,5 +166,6 @@ public class HexData : MonoBehaviour
     
     void Update()
     {
+        this.updateColor();
     }
 };

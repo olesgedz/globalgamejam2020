@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    [SerializeField] static HexController hexController;
+    [SerializeField] HexController hexController;
     List<ExternalEnvironment> externalList;
     public HexData[] hexObjectsArray;
 
@@ -18,12 +18,13 @@ public class GameController : MonoBehaviour
     {
         hexObjectsArray = Resources.FindObjectsOfTypeAll(typeof(HexData)) as HexData[];
         hexObjectsArray[0].live();
+        hexController = FindObjectOfType<HexController>();
         hexController.setObjectsArray(hexObjectsArray);
     }
 
     // Update is called once per frame
     void Update()
     {
-        hexController.UpdateScene(externalList);
+        hexController.UpdateScene();
     }
 }

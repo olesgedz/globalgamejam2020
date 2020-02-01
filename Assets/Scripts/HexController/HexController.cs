@@ -14,7 +14,7 @@ public class HexController : MonoBehaviour
         hexObjectsArray = hexArray;
     }
 
-    public void UpdateScene(List<ExternalEnvironment> enviromentList)
+    public void UpdateScene(List<ExternalEnvironment> enviromentList = null)
     {
         foreach (var hexobject in hexObjectsArray)
         {

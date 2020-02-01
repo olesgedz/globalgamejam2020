@@ -19,10 +19,10 @@ public class ExternalEnvironment : MonoBehaviour
     public virtual List<GameObject> GetEffectedTiles()
     {
         List<GameObject> list = new List<GameObject>();
-        //RaycastHit hit;
-        //Vector3 fwd = transform.TransformDirection(this.gameObject.transform.forward);
-        //if (Physics.Raycast(transform.position, fwd, out hit))
-            //Debug.Log(hit.rigidbody.gameObject.name);
+        RaycastHit hit;
+        Vector3 fwd = transform.TransformDirection(this.gameObject.transform.forward);
+        if (Physics.Raycast(transform.position, fwd, out hit))
+            Debug.Log(hit.rigidbody.gameObject.name);
         return list;
     }
 }

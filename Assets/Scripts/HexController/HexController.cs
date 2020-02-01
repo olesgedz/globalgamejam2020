@@ -7,16 +7,21 @@ public class HexController : MonoBehaviour
     public HexData[] hexObjectsArray;
     void Start()
     {
-        hexObjectsArray = Resources.FindObjectsOfTypeAll(typeof(HexData)) as HexData[];
-        hexObjectsArray[0].live();
     }
 
-    void UpdateScene(List<GameObject> hexNeibours)
+    public void setObjectsArray(HexData[] hexArray)
+    {
+        hexObjectsArray = hexArray;
+    }
+
+    public void UpdateScene(List<ExternalEnvironment> enviromentList)
     {
         foreach (var hexobject in hexObjectsArray)
         {
-            Debug.Log(hexobject.hexStatusState);
             hexobject.updateHex();
+        }
+        foreach (var hexobject in hexObjectsArray)
+        {
             hexobject.influeceNeibours();
         }
     }

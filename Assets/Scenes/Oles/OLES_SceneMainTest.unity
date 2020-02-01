@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666553028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.69, z: -10}
+  m_LocalPosition: {x: 0, y: 7.69, z: -21.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -216,10 +216,11 @@ GameObject:
   - component: {fileID: 1906032369}
   - component: {fileID: 1906032368}
   - component: {fileID: 1906032367}
+  - component: {fileID: 1906032372}
   - component: {fileID: 1906032371}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: Planet
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -311,6 +312,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 0.2
+--- !u!114 &1906032372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906032366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e6310cc9c7b440480e3f9b2290d454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meteor: {fileID: 2761269751541755324, guid: d3561d43ef76549ac99a06ee874f3bc4, type: 3}
+  camera: {fileID: 0}
+  target: {fileID: 0}
 --- !u!1 &2142572047
 GameObject:
   m_ObjectHideFlags: 0

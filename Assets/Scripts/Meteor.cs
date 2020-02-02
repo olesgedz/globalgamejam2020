@@ -31,20 +31,16 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(collision.GetContact(0).point, 5);
+        Collider[] hitColliders = Physics.OverlapSphere(collision.GetContact(0).point, 1);
         point = collision.GetContact(0).point;
-        foreach (var col in hitColliders)
-        {
-            Debug.Log("Before if");
+    
             //hexController.effectedByMeteor.Add(col.gameObject);
             HexData hexData;
-            if (col.gameObject.TryGetComponent<HexData>(out hexData))
+            if (hitColliders[0].gameObject.TryGetComponent<HexData>(out hexData))
             { 
-                Debug.Log("Inside if");
                 hexData.live();
                 //hexData.setDisaster(DisasterState.Fire);
             }
-        }
         Destroy(this.gameObject);    
     }
 

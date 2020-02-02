@@ -105,7 +105,7 @@ public class HexData : MonoBehaviour
                 active = desert;
             else
             {
-                if (hexProgressState > HexProgress.Birth)
+                if (hexProgressState >= HexProgress.Birth)
                     active = grass;
                 else
                 {

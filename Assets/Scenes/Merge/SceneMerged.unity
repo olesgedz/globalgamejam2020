@@ -590,5 +590,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 300866927850090243, guid: 2aa4979e3f35c4b8791484d101a58e28, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2aa4979e3f35c4b8791484d101a58e28, type: 3}

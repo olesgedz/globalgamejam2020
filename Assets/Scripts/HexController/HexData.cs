@@ -92,12 +92,10 @@ public class HexData : MonoBehaviour
             if (randVal == 1)
             {
                 active = clay;
-                active.SetActive(true);
             }
             else
             {
                 active = stones;
-                active.SetActive(true);
             }
         }
         else
@@ -229,13 +227,12 @@ public class HexData : MonoBehaviour
         if (randVal == 0)
         {
             active = clay;
-            active.SetActive(true);
         }
         else
         {
             active = stones;
-            active.SetActive(true);
         }
+        active.SetActive(true);
     }
     
     void Update()

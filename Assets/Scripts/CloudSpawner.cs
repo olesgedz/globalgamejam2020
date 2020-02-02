@@ -30,13 +30,13 @@ public class CloudSpawner : MonoBehaviour
         //GameObject newCloud = Instantiate(cloud, pos + parent.transform.position, Quaternion.Euler(angleX, angleY, 0)) as GameObject;
 
 
-        Vector3 pos = RandomCircle(parent.transform.position, 20f);
+        Vector3 pos = RandomCircle(parent.transform.position, 7f);
         Quaternion rot = Quaternion.FromToRotation(cloud.transform.right, parent.transform.position - pos);
         GameObject newCloud =  Instantiate(cloud, pos, rot) as GameObject;
         //newCloud.transform.LookAt(newCloud.transform, parent.transform.position);
         newCloud.transform.SetParent(parent.transform);
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(10f);
         StartCoroutine(SpawnCloud());
     }
 

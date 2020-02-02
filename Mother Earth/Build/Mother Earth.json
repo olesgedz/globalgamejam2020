@@ -1,0 +1,16 @@
+{
+"companyName": "DefaultCompany",
+"productName": "GrowThePlanet",
+"productVersion": "0.1",
+"dataUrl": "Mother Earth.data.unityweb",
+"wasmCodeUrl": "Mother Earth.wasm.code.unityweb",
+"wasmFrameworkUrl": "Mother Earth.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.3.0f6"
+}

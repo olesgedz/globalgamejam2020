@@ -6,9 +6,9 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
     [SerializeField] HexController hexController;
-    [SerializeField] RenderManager renManager;
     List<ExternalEnvironment> externalList;
     public HexData[] hexObjectsArray;
+    public Canvas can;
 
     private void Awake()
     {
@@ -18,7 +18,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         hexObjectsArray = Resources.FindObjectsOfTypeAll(typeof(HexData)) as HexData[];
-        hexObjectsArray[0].live();
         hexController = FindObjectOfType<HexController>();
         hexController.setObjectsArray(hexObjectsArray);
     }
@@ -27,5 +26,10 @@ public class GameController : MonoBehaviour
     void Update()
     {
         hexController.UpdateScene();
+    }
+
+     public  void winGameOver()
+    {
+        can.gameObject.SetActive(true);
     }
 }

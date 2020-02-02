@@ -6,6 +6,9 @@ public class ExternalEnvironment : MonoBehaviour
 { 
     [SerializeField] GameObject planet;
     private RaycastHit hit;
+   [SerializeField] List<GameObject> hexcontroller;
+
+    float timeLeft = 15;
     void Start()
     {
         planet = GameObject.FindGameObjectWithTag("Planet");
@@ -13,20 +16,20 @@ public class ExternalEnvironment : MonoBehaviour
 
     void Update()
     {
-        List<GameObject> list = GetEffectedTiles();
-        foreach(var edit in list)
+        //      List<GameObject> list = GetEffectedTiles();
+        GetEffectedTiles();
+     timeLeft -= Time.deltaTime;
+        if (timeLeft < 0)
         {
-            Debug.Log(edit.gameObject.name);
+            Object.Destroy(this.gameObject);
         }
-
-
     }
 
-    public virtual List<GameObject> GetEffectedTiles()
+    public void GetEffectedTiles()
     {
-        List<GameObject> list = new List<GameObject>();
 
        // Vector3 fwd = transform.TransformDirection(this.gameObject.transform.forward);
+
         Vector3 forward = planet.transform.position - this.transform.position;
         Debug.DrawRay(transform.position, forward, Color.green);
     
@@ -34,14 +37,10 @@ public class ExternalEnvironment : MonoBehaviour
         {
             Collider[] hitColliders = Physics.OverlapSphere(hit.point, 1);
             int i = 0;
-            while (i < hitColliders.Length)
-            {
-                if (this.gameObject != hitColliders[i].gameObject)
-                    list.Add(hitColliders[i].gameObject);
-                i++;
-            }
+            Debug.Log(hit.collider.gameObject.GetComponentInChildren<HexData>().gameObject.name);
+            hit.collider.gameObject.GetComponentInChildren<HexData>().updateWater(7);
+         
         }
-        return list;
     }
 
 
@@ -50,4 +49,5 @@ public class ExternalEnvironment : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(hit.point, 1);
     }
+
 }

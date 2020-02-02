@@ -149,10 +149,10 @@ Material:
     - _BaseColorisasEmission: 0
     - _BaseisasEmission: 0
     - _BlendBlendAlpha: 0
-    - _BlendBlendDistance: 0.63
+    - _BlendBlendDistance: 1.51
     - _BlendEnableThis: 0
     - _BumpScale: 1
-    - _CubemapFresnel: 6.33
+    - _CubemapFresnel: 15.95
     - _CubemapGlossiness: 1
     - _CubemapStrength: 0
     - _CubemapUseCustomCubemap: 1
@@ -173,10 +173,10 @@ Material:
     - _NormalStrength: 0.214
     - _OcclusionStrength: 1
     - _OverallBlendDistance: 1.14
-    - _OverallGloss: 0.476
+    - _OverallGloss: 0
     - _OverallHeight: 4.1
-    - _OverallMetallic: 1
-    - _OverallNormalStrength: 0.95
+    - _OverallMetallic: 0.306
+    - _OverallNormalStrength: 0.605
     - _OverallWaveHeight: 0.8
     - _Parallax: 0.02
     - _PrimaryHeightStrength: 0

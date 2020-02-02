@@ -10,8 +10,6 @@ public class RenderManager : MonoBehaviour
         
     }
 
-    public void setObjectArray();
-
     // Update is called once per frame
     void Update()
     {

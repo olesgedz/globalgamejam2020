@@ -587,6 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hexObjectsArray: []
+  effectedByMeteor: []
 --- !u!1 &999974844
 GameObject:
   m_ObjectHideFlags: 0
@@ -4264,7 +4265,7 @@ GameObject:
   - component: {fileID: 1634239895}
   m_Layer: 0
   m_Name: Planet
-  m_TagString: Planet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

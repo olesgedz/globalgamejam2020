@@ -69,10 +69,13 @@ public class HexData : MonoBehaviour
         {
             foreach (HexData hex in hexNeibours)
             {
-                if (hex.isAlive())
-                    hex.updateProgress(addition / 2);
-                else
-                    hex.live();
+                if (hex)
+                {
+                    if (hex.isAlive())
+                        hex.updateProgress(addition / 2);
+                    else
+                        hex.live();
+                }
             }
         }
     }
@@ -84,6 +87,7 @@ public class HexData : MonoBehaviour
 
     public void live()
     {
+        Debug.Log("Nothing left");
         this.setIdle(HexState.Alive);
         this.hexProgressState = HexProgress.Birth;
         //model.material.SetColor("_Color", new Color32(162, 167, 160, 255));

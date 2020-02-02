@@ -86,7 +86,7 @@ public class HexData : MonoBehaviour
     {
         this.setIdle(HexState.Alive);
         this.hexProgressState = HexProgress.Birth;
-        model.material.SetColor("_Color", new Color32(162, 167, 160, 255));
+        //model.material.SetColor("_Color", new Color32(162, 167, 160, 255));
     }
 
     public HexState getState()

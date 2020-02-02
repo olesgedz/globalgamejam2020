@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
-    [SerializeField] Vector3 Axis;
+    private Vector3 Axis;
     [SerializeField] float RotationSpeed;
     // Start is called before the first frame update
 

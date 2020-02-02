@@ -8,6 +8,7 @@ public class Meteor : MonoBehaviour
     public GameObject target;
     private Rigidbody rigidbody;
     [SerializeField] float speed;
+    [SerializeField] HexController hexController;
 
     void Start()
     {
@@ -29,6 +30,16 @@ public class Meteor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Collider[] hitColliders = Physics.OverlapSphere(collision.GetContact(1).point, 1);
+        foreach (var col in hitColliders)
+        {
+            //hexController.effectedByMeteor.Add(col.gameObject);
+            if (col.gameObject.TryGetComponent<HexData>(out HexData hexData))
+            {
+                hexData.live();
+                hexData.setDisaster(DisasterState.Fire);
+            }
+        }
         Destroy(this.gameObject);    
     }
 }

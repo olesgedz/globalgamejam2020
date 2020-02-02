@@ -5,6 +5,7 @@ using UnityEngine;
 public class HexController : MonoBehaviour
 {
     public HexData[] hexObjectsArray;
+    public List<GameObject> effectedByMeteor;
     void Start()
     {
     }

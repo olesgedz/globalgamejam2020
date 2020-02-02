@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8976763122015157022}
   - component: {fileID: 8228150604745399589}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Meteor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2761269751541755324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.152, y: 16.507, z: 23.97}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 21.0174, y: 16.2331, z: 23.97}
+  m_LocalScale: {x: 0.7307, y: 0.7261, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 157262, guid: c2e22098ce7c8da4590cceb5113bd50e, type: 3}
-  speed: 1000
+  speed: 100
 --- !u!136 &8228150604745399589
 CapsuleCollider:
   m_ObjectHideFlags: 0

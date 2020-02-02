@@ -36,7 +36,7 @@ public class CloudSpawner : MonoBehaviour
         //newCloud.transform.LookAt(newCloud.transform, parent.transform.position);
         newCloud.transform.SetParent(parent.transform);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         StartCoroutine(SpawnCloud());
     }
 

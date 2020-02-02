@@ -25,13 +25,13 @@ public class MeteorSpawner : MonoBehaviour
 
         float radius = Mathf.Tan(Mathf.Deg2Rad * 60 / 2) * 50;
         Vector2 circle = Random.insideUnitCircle * radius;
-        Vector3 pos = target.transform.position + -camera.transform.forward * 50 + target.transform.rotation * new Vector3(circle.x, circle.y);
+        Vector3 pos = target.transform.position + -camera.transform.forward * Random.Range(3,5) + target.transform.rotation * new Vector3(circle.x, circle.y);
 
 
 
         //pos.x = Mathf.Abs(pos.x);
         Instantiate(meteor, pos, Quaternion.identity);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         StartCoroutine(SpawnMeteor());
     }
 }

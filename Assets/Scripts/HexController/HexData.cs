@@ -23,22 +23,6 @@ public static class TransformDeepChildExtension
         }
         return null;
     }
-
-    /*
-    //Depth-first search
-    public static Transform FindDeepChild(this Transform aParent, string aName)
-    {
-        foreach(Transform child in aParent)
-        {
-            if(child.name == aName )
-                return child;
-            var result = child.FindDeepChild(aName);
-            if (result != null)
-                return result;
-        }
-        return null;
-    }
-    */
 }
 
 public class HexData : MonoBehaviour
@@ -59,6 +43,11 @@ public class HexData : MonoBehaviour
     [SerializeField] float disasterProgress;
     [SerializeField] float generalProgress;
     [SerializeField] float addition;
+    [SerializeField] int randVal;
+    [SerializeField] float timespeedProg = 20.0f;
+    [SerializeField] float timespeedDisaster = 1.0f;
+    [SerializeField] float timespeedDry = 1.0f;
+    [SerializeField] float timespeedCold = 1.0f;
 
     private void setIdle(HexState newHexState)
     {
@@ -81,12 +70,15 @@ public class HexData : MonoBehaviour
 
     private void getNeibours()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 1);
+        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 0.5f);
         foreach (var gobject in hitColliders)
         {
-            if (this.gameObject != gobject)
+            Debug.Log(gobject.gameObject.name);
+
+            HexData temp;
+            if (this.gameObject != gobject & gobject.TryGetComponent<HexData>(out temp))
             {
-                hexNeibours.Add(gobject.GetComponent<HexData>());
+                hexNeibours.Add(temp);
             }
         }
     }
@@ -97,7 +89,16 @@ public class HexData : MonoBehaviour
         if (hexStatusState == HexState.Dead &
         active != stones)
         {
-            active = stones;
+            if (randVal == 1)
+            {
+                active = clay;
+                active.SetActive(true);
+            }
+            else
+            {
+                active = stones;
+                active.SetActive(true);
+            }
         }
         else
         {
@@ -151,6 +152,8 @@ public class HexData : MonoBehaviour
 
     public void updateHex()
     {
+        waterBalance -= timespeedDry * Time.deltaTime;
+        temperatureBalance -= timespeedCold * Time.deltaTime;
         if (hexStatusState == HexState.Dead)
         {
             return ;
@@ -158,7 +161,7 @@ public class HexData : MonoBehaviour
         if (disasterState == DisasterState.Dry 
         | disasterState == DisasterState.Fire)
         {
-            disasterProgress += (float)(2.0 * Time.deltaTime);
+            disasterProgress += (float)(timespeedDisaster * Time.deltaTime);
         }
         if (disasterProgress >= 100)
         {
@@ -177,7 +180,7 @@ public class HexData : MonoBehaviour
             this.die();
             return;
         }
-        addition = (float)(20 * Time.deltaTime);
+        addition = (float)(timespeedProg * Time.deltaTime);
         if (generalProgress <= 900)
             generalProgress += addition;
         hexProgressState = (HexProgress)((int)generalProgress / 100);
@@ -210,20 +213,29 @@ public class HexData : MonoBehaviour
     }
 
     void Start()
-    { 
+    {
         this.setIdle();
         this.getNeibours();
         grass = transform.FindDeepChild("HexTop_River").gameObject;
-        desert = transform.FindDeepChild("HexTop_Desert").gameObject; 
+        desert = transform.FindDeepChild("HexTop_Desert").gameObject;
         clay = transform.FindDeepChild("HexTop_ClayGround").gameObject;
         stones = transform.FindDeepChild("HexTop_StoneGround").gameObject;
         grass.SetActive(false);
         desert.SetActive(false);
         clay.SetActive(false);
         stones.SetActive(false);
-        active = clay;
-        active.SetActive(true);
-        Debug.Log(model.material.name);
+        Random rand = new Random();
+        randVal = Random.Range(0, 2);
+        if (randVal == 0)
+        {
+            active = clay;
+            active.SetActive(true);
+        }
+        else
+        {
+            active = stones;
+            active.SetActive(true);
+        }
     }
     
     void Update()

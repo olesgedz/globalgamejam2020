@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
     [SerializeField] HexController hexController;
+    [SerializeField] RenderManager renManager;
     List<ExternalEnvironment> externalList;
     public HexData[] hexObjectsArray;
 

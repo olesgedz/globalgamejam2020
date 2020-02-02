@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum HexState {Dead, Alive};
-public enum DisasterState {None, Dry, Fire};
-public enum HexProgress {Nothing = 0, Birth = 1 , StableBirth = 2 , Animals = 3, StableAnimals = 4, Tribe = 5, Village = 6, SmallCity = 7, Megapolice = 8, Winner = 9};
+public enum HexState { Dead, Alive };
+public enum DisasterState { None, Dry, Fire };
+public enum HexProgress { Nothing = 0, Birth = 1, StableBirth = 2, Animals = 3, StableAnimals = 4, Tribe = 5, Village = 6, SmallCity = 7, Megapolice = 8, Winner = 9 };
 
 public static class TransformDeepChildExtension
 {
@@ -23,22 +23,6 @@ public static class TransformDeepChildExtension
         }
         return null;
     }
-
-    /*
-    //Depth-first search
-    public static Transform FindDeepChild(this Transform aParent, string aName)
-    {
-        foreach(Transform child in aParent)
-        {
-            if(child.name == aName )
-                return child;
-            var result = child.FindDeepChild(aName);
-            if (result != null)
-                return result;
-        }
-        return null;
-    }
-    */
 }
 
 public class HexData : MonoBehaviour
@@ -59,6 +43,11 @@ public class HexData : MonoBehaviour
     [SerializeField] float disasterProgress;
     [SerializeField] float generalProgress;
     [SerializeField] float addition;
+    [SerializeField] int randVal;
+    [SerializeField] float timespeedProg = 20.0f;
+    [SerializeField] float timespeedDisaster = 1.0f;
+    [SerializeField] float timespeedDry = 1.0f;
+    [SerializeField] float timespeedCold = 1.0f;
 
     private void setIdle(HexState newHexState)
     {
@@ -81,12 +70,15 @@ public class HexData : MonoBehaviour
 
     private void getNeibours()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 1);
+        Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 0.5f);
         foreach (var gobject in hitColliders)
         {
-            if (this.gameObject != gobject)
+            Debug.Log(gobject.gameObject.name);
+
+            HexData temp;
+            if (this.gameObject != gobject & gobject.TryGetComponent<HexData>(out temp))
             {
-                hexNeibours.Add(gobject.GetComponent<HexData>());
+                hexNeibours.Add(temp);
             }
         }
     }
@@ -97,7 +89,16 @@ public class HexData : MonoBehaviour
         if (hexStatusState == HexState.Dead &
         active != stones)
         {
-            active = stones;
+            if (randVal == 1)
+            {
+                active = clay;
+                active.SetActive(true);
+            }
+            else
+            {
+                active = stones;
+                active.SetActive(true);
+            }
         }
         else
         {
@@ -124,13 +125,10 @@ public class HexData : MonoBehaviour
         {
             foreach (HexData hex in hexNeibours)
             {
-                if (hex)
-                {
-                    if (hex.isAlive())
-                        hex.updateProgress(addition / 2);
-                    else
-                        hex.live();
-                }
+                if (hex.isAlive())
+                    hex.updateProgress(addition / 2);
+                else
+                    hex.live();
             }
         }
     }
@@ -142,7 +140,6 @@ public class HexData : MonoBehaviour
 
     public void live()
     {
-        Debug.Log("Nothing left");
         this.setIdle(HexState.Alive);
         this.hexProgressState = HexProgress.Birth;
         //model.material.SetColor("_Color", new Color32(162, 167, 160, 255));
@@ -155,19 +152,21 @@ public class HexData : MonoBehaviour
 
     public void updateHex()
     {
+        waterBalance -= timespeedDry * Time.deltaTime;
+        temperatureBalance -= timespeedCold * Time.deltaTime;
         if (hexStatusState == HexState.Dead)
         {
-            return ;
+            return;
         }
-        if (disasterState == DisasterState.Dry 
+        if (disasterState == DisasterState.Dry
         | disasterState == DisasterState.Fire)
         {
-            disasterProgress += (float)(2.0 * Time.deltaTime);
+            disasterProgress += (float)(timespeedDisaster * Time.deltaTime);
         }
         if (disasterProgress >= 100)
         {
             this.die();
-            return ;
+            return;
         }
         if (temperatureBalance >= 100 |
         temperatureBalance <= -100)
@@ -181,7 +180,7 @@ public class HexData : MonoBehaviour
             this.die();
             return;
         }
-        addition = (float)(20 * Time.deltaTime);
+        addition = (float)(timespeedProg * Time.deltaTime);
         if (generalProgress <= 900)
             generalProgress += addition;
         hexProgressState = (HexProgress)((int)generalProgress / 100);
@@ -214,22 +213,31 @@ public class HexData : MonoBehaviour
     }
 
     void Start()
-    { 
+    {
         this.setIdle();
         this.getNeibours();
         grass = transform.FindDeepChild("HexTop_River").gameObject;
-        desert = transform.FindDeepChild("HexTop_Desert").gameObject; 
+        desert = transform.FindDeepChild("HexTop_Desert").gameObject;
         clay = transform.FindDeepChild("HexTop_ClayGround").gameObject;
         stones = transform.FindDeepChild("HexTop_StoneGround").gameObject;
         grass.SetActive(false);
         desert.SetActive(false);
         clay.SetActive(false);
         stones.SetActive(false);
-        active = clay;
-        active.SetActive(true);
-        Debug.Log(model.material.name);
+        Random rand = new Random();
+        randVal = Random.Range(0, 2);
+        if (randVal == 0)
+        {
+            active = clay;
+            active.SetActive(true);
+        }
+        else
+        {
+            active = stones;
+            active.SetActive(true);
+        }
     }
-    
+
     void Update()
     {
     }

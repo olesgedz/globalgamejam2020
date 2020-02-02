@@ -37,7 +37,8 @@ public class Meteor : MonoBehaviour
         {
             Debug.Log("Before if");
             //hexController.effectedByMeteor.Add(col.gameObject);
-            if (col.gameObject.TryGetComponent<HexData>(out HexData hexData))
+            HexData hexData;
+            if (col.gameObject.TryGetComponent<HexData>(out hexData))
             { 
                 Debug.Log("Inside if");
                 hexData.live();

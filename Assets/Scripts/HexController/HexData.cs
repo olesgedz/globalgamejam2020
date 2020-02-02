@@ -6,6 +6,41 @@ public enum HexState {Dead, Alive};
 public enum DisasterState {None, Dry, Fire};
 public enum HexProgress {Nothing = 0, Birth = 1 , StableBirth = 2 , Animals = 3, StableAnimals = 4, Tribe = 5, Village = 6, SmallCity = 7, Megapolice = 8, Winner = 9};
 
+public static class TransformDeepChildExtension
+{
+    //Breadth-first search
+    public static Transform FindDeepChild(this Transform aParent, string aName)
+    {
+        Queue<Transform> queue = new Queue<Transform>();
+        queue.Enqueue(aParent);
+        while (queue.Count > 0)
+        {
+            var c = queue.Dequeue();
+            if (c.name == aName)
+                return c;
+            foreach (Transform t in c)
+                queue.Enqueue(t);
+        }
+        return null;
+    }
+
+    /*
+    //Depth-first search
+    public static Transform FindDeepChild(this Transform aParent, string aName)
+    {
+        foreach(Transform child in aParent)
+        {
+            if(child.name == aName )
+                return child;
+            var result = child.FindDeepChild(aName);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
+    */
+}
+
 public class HexData : MonoBehaviour
 {
     List<HexData> hexNeibours = new List<HexData>();
@@ -13,14 +48,17 @@ public class HexData : MonoBehaviour
     public DisasterState disasterState;
     public HexProgress hexProgressState;
 
-        MeshRenderer model;
-        [SerializeField] float waterBalance;
-        [SerializeField] float temperatureBalance;
-        [SerializeField] float disasterProgress;
-        [SerializeField] float generalProgress;
-        [SerializeField] float addition;
-        [SerializeField] Color startColorLife;
-        [SerializeField] Color endColorLife;
+    MeshRenderer model;
+    public GameObject stones;
+    public GameObject desert;
+    public GameObject clay;
+    public GameObject grass;
+    public GameObject active;
+    [SerializeField] float waterBalance;
+    [SerializeField] float temperatureBalance;
+    [SerializeField] float disasterProgress;
+    [SerializeField] float generalProgress;
+    [SerializeField] float addition;
 
     private void setIdle(HexState newHexState)
     {
@@ -53,14 +91,31 @@ public class HexData : MonoBehaviour
         }
     }
 
-    private void updateColor()
+    private void setTile()
     {
-        float prog;
-        if (generalProgress > 200)
-            prog = 200;
+        active.SetActive(false);
+        if (hexStatusState == HexState.Dead &
+        active != stones)
+        {
+            active = stones;
+        }
         else
-            prog = generalProgress;
-        model.material.SetColor("_Color", Color32.Lerp(startColorLife, endColorLife, Mathf.PingPong(prog / 200, 1)));
+        {
+            if (disasterState == DisasterState.Dry)
+                active = desert;
+            else
+            {
+                if (hexProgressState >= HexProgress.Birth)
+                {
+                    active = grass;
+                }
+                else
+                {
+                    active = clay;
+                }
+            }
+        }
+        active.SetActive(true);
     }
 
     public void influeceNeibours()
@@ -130,6 +185,7 @@ public class HexData : MonoBehaviour
         if (generalProgress <= 900)
             generalProgress += addition;
         hexProgressState = (HexProgress)((int)generalProgress / 100);
+        this.setTile();
     }
 
     public void updateProgress(float progress)
@@ -161,15 +217,20 @@ public class HexData : MonoBehaviour
     { 
         this.setIdle();
         this.getNeibours();
-        startColorLife = new Color32(162, 167, 160, 255);
-        endColorLife = new Color32(165, 209, 67, 255);
-        model = gameObject.GetComponentInParent<MeshRenderer>();
-        model.material.SetColor("_Color", new Color32(162, 167, 160, 255));
+        grass = transform.FindDeepChild("HexTop_River").gameObject;
+        desert = transform.FindDeepChild("HexTop_Desert").gameObject; 
+        clay = transform.FindDeepChild("HexTop_ClayGround").gameObject;
+        stones = transform.FindDeepChild("HexTop_StoneGround").gameObject;
+        grass.SetActive(false);
+        desert.SetActive(false);
+        clay.SetActive(false);
+        stones.SetActive(false);
+        active = clay;
+        active.SetActive(true);
         Debug.Log(model.material.name);
     }
     
     void Update()
     {
-        this.updateColor();
     }
 };

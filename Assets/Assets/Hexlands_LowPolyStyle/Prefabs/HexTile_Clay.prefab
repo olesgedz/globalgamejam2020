@@ -56,6 +56,11 @@ MonoBehaviour:
   hexStatusState: 0
   disasterState: 0
   hexProgressState: 0
+  stones: {fileID: 0}
+  desert: {fileID: 0}
+  clay: {fileID: 0}
+  grass: {fileID: 0}
+  active: {fileID: 0}
   waterBalance: 0
   temperatureBalance: 0
   disasterProgress: 0

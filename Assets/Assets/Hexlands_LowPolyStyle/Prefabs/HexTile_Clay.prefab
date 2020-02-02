@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4334604792498513319}
   m_Layer: 0
   m_Name: HexTile_Clay
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,8 +66,11 @@ MonoBehaviour:
   disasterProgress: 0
   generalProgress: 0
   addition: 0
-  startColorLife: {r: 0, g: 0, b: 0, a: 0}
-  endColorLife: {r: 0, g: 0, b: 0, a: 0}
+  randVal: 0
+  timespeedProg: 20
+  timespeedDisaster: 1
+  timespeedDry: 1
+  timespeedCold: 1
 --- !u!65 &4334604792498513319
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -18,7 +18,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         hexObjectsArray = Resources.FindObjectsOfTypeAll(typeof(HexData)) as HexData[];
-        hexObjectsArray[0].live();
         hexController = FindObjectOfType<HexController>();
         hexController.setObjectsArray(hexObjectsArray);
     }
